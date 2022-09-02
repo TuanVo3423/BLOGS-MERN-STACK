@@ -24,26 +24,49 @@ export default function postReducer(state = INIT_STATE.posts , action){
                 isLoading :false,
             }
         }   
-
+        case getType(createPosts.createPostsRequest) : 
+        {
+            return {
+                ...state,
+                isLoading : true,
+            }
+        }
         case getType(createPosts.createPostsSuccess) : 
         {
             return {
                 ...state,
+                isLoading : false,
                 data : [...state.data , action.payload],
             }
+        }
+        case getType(updatePosts.updatePostsRequest): 
+        {
+            return {
+                ...state,
+                isLoading : true,
+            };
         }
         case getType(updatePosts.updatePostsSuccess): 
         {
             return {
                 ...state,
+                isLoading : false,
                 data : state.data.map(post => post._id === action.payload._id ? action.payload : post),
             };
         }
 
+        case getType(deletePosts.deletePostsRequest): 
+        {
+            return {
+                ...state,
+                isLoading : true,
+            };
+        }
         case getType(deletePosts.deletePostsSuccess): 
         {
             return {
                 ...state,
+                isLoading : false,
                 data : state.data.filter((post) => post._id !== action.payload),
             };
         }
