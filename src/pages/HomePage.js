@@ -31,7 +31,7 @@ function HomePage() {
       />
       <CreatePostModal />
       <EditPostModal />
-      <Fab color="primary" aria-label="add" sx={{position : 'absolute' , bottom : '-100%' , right : '0' }}  onClick={handleOpenModal} >
+      <Fab color="primary" aria-label="add" sx={{position : 'fixed' , bottom : '10%' , right : '10%' }}  onClick={handleOpenModal} >
         <AddIcon />
       </Fab>
       </React.Fragment>

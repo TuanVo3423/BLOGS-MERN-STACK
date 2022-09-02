@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = 'http://localhost:5000'; 
+const URL = 'https://blog-app-gang.herokuapp.com'; 
 
 export const fetchPosts = () => axios.get(`${URL}`);
 export const createPosts = (payload) => axios.post(`${URL}/posts/createPost`, payload);
