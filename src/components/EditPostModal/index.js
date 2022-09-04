@@ -2,9 +2,10 @@ import React from 'react';
 import { Button, FormGroup, FormLabel, Modal, TextareaAutosize, TextField, Typography } from '@mui/material';
 import FileBase64 from 'react-file-base64';
 import { ModalEditState$ } from '../../redux/selectors';
+import {EditPostReducer} from '../../redux/reducers/edit';
+import {PostReducer} from '../../redux/reducers/posts';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
-import { updatePosts,  HideModalEdit } from '../../redux/actions';
 
 export default function EditPostModal() {
     const editValueAVailable = useSelector(ModalEditState$);
@@ -24,20 +25,18 @@ export default function EditPostModal() {
         setIsFirst(false);
         setDataValue({...dataValue , content : e.target.value })
     }
-    // console.log('isFirst' , isFirst);
     React.useEffect(() => {
         setIsFirst(true);
     },[]);
-    console.log('dataValue' , dataValue);
-    console.log('editValueAVailable' , data);
+    
     const dispatch = useDispatch();
     const onClose = React.useCallback(() => {
         setIsFirst(true);
-        dispatch(HideModalEdit());
+        dispatch(EditPostReducer.actions.HideModalEdit());
     },[dispatch]);
 
     const handleSubmit = React.useCallback(() => {
-        dispatch(updatePosts.updatePostsRequest({...data , title : dataValue.title , content : dataValue.content , attachment : dataValue.attachment}));
+        dispatch(PostReducer.actions.updatePostsRequest({...data , title : dataValue.title , content : dataValue.content , attachment : dataValue.attachment}));
         onClose();
     },[data, dataValue.attachment, dataValue.content, dataValue.title, dispatch, onClose]);
 

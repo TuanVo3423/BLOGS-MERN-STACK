@@ -1,10 +1,18 @@
 export const INIT_STATE = {
+
+    system : {
+        isLoading : false,
+        isError : false,
+        message : '',
+        type : '',
+    },
     posts : {
         isLoading : false,
+        isError : true,
         data : []
     },
     fab : {
-        isShowModal : false,
+        isShowModalCreate : false,
     },
     edit : {
         isShowEditModal : false,
@@ -13,5 +21,14 @@ export const INIT_STATE = {
             content : '',
             attachment : '',
         }
+    },
+    account : {
+        isLoading : false,
+        loginSuccess : false,
+        userID : undefined,
+        isError : false,
+        username : undefined,
+        isAdmin : false,
+
     }
 }

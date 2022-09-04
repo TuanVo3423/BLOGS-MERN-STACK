@@ -1,78 +1,52 @@
-import {INIT_STATE} from '../../constant/index'
-import {getType , getPosts , createPosts , updatePosts , deletePosts } from '../actions';
-export default function postReducer(state = INIT_STATE.posts , action){
-    switch(action.type){
-        case getType(getPosts.getPostsRequest) : // case getPosts request
-         {
-            return {
-                ...state,
-                isLoading : true,
-            }
-        }
-        case getType(getPosts.getPostsSuccess) : // case getPosts success
-         {
-            return {
-                ...state,
-                isLoading : false,
-                data : action.payload
-            }
-        }
-        case getType(getPosts.getPostsFailure) : // case getPosts getPostFailure
-        {
-            return {
-                ...state,
-                isLoading :false,
-            }
-        }   
-        case getType(createPosts.createPostsRequest) : 
-        {
-            return {
-                ...state,
-                isLoading : true,
-            }
-        }
-        case getType(createPosts.createPostsSuccess) : 
-        {
-            return {
-                ...state,
-                isLoading : false,
-                data : [...state.data , action.payload],
-            }
-        }
-        case getType(updatePosts.updatePostsRequest): 
-        {
-            return {
-                ...state,
-                isLoading : true,
-            };
-        }
-        case getType(updatePosts.updatePostsSuccess): 
-        {
-            return {
-                ...state,
-                isLoading : false,
-                data : state.data.map(post => post._id === action.payload._id ? action.payload : post),
-            };
-        }
+import { createSlice } from '@reduxjs/toolkit';
+import {INIT_STATE} from '../../constant/index';
+const initialState = INIT_STATE.posts;
 
-        case getType(deletePosts.deletePostsRequest): 
-        {
-            return {
-                ...state,
-                isLoading : true,
-            };
-        }
-        case getType(deletePosts.deletePostsSuccess): 
-        {
-            return {
-                ...state,
-                isLoading : false,
-                data : state.data.filter((post) => post._id !== action.payload),
-            };
-        }
+export const PostReducer = createSlice({
+    name : 'posts',
+    initialState,
+    reducers : {
+        getPostsRequest : (state, action) => {
+            
+        },
+        getPostsSuccess : (state, action) => {
+            state.isLoading = false;
+            state.data = action.payload.posts;
+        },
+        getPostsFailure : (state, action) => {
+            state.isError = false;
+            state.isLoading = false;
+        },
+        createPostsRequest : (state, action) => {
+            state.isLoading = true;
+        },
+        createPostsSuccess : (state, action) => {
+            state.isLoading = false;
+            state.data.push(action.payload);
+        },
+        createPostsFailure : (state, action) => {
+            state.isLoading = true;
+        },
+        updatePostsRequest : (state, action) => {
+            state.isLoading = true;
+        },
+        updatePostsSuccess : (state, action) => {
+            state.isLoading = false;
+            state.data = state.data.map(post => post._id === action.payload._id ? action.payload : post);
+        },
+        updatePostsFailure : (state, action) => {
+            state.isLoading = true;
+        },
+        deletePostsRequest : (state, action) => {
+            state.isLoading = true;
+        },
         
-
-        default : return state;
+        deletePostsSuccess : (state, action) => {
+            state.isLoading = false;
+            state.data = state.data.filter(post => post._id !== action.payload);
+        },
+        deletePostsFailure : (state, action) => {
+            state.data = state.data.filter(post => post._id !== action.payload._id);
+        }
     }
-    
-}
+});

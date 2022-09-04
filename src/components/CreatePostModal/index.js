@@ -4,7 +4,8 @@ import FileBase64 from 'react-file-base64';
 import { showModalState$ } from '../../redux/selectors';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
-import { createPosts, hideModal } from '../../redux/actions';
+import { FabReducer } from '../../redux/reducers/fab';
+import { PostReducer } from '../../redux/reducers/posts';
 
 export default function CreatePostModal() {
     const [data,setData] = React.useState({
@@ -14,7 +15,7 @@ export default function CreatePostModal() {
     });
     const dispatch = useDispatch();
     const onClose = React.useCallback(() => {
-        dispatch(hideModal());
+        dispatch(FabReducer.actions.HideModalCreate());
         setData({
             title: '',
             content : '',
@@ -23,7 +24,7 @@ export default function CreatePostModal() {
     },[dispatch]);
 
     const handleSubmit = React.useCallback(() => {
-        dispatch(createPosts.createPostsRequest(data));
+        dispatch(PostReducer.actions.createPostsRequest(data));
         onClose();
     },[data, dispatch, onClose]);
 

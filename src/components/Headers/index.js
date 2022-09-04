@@ -8,9 +8,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useSelector } from 'react-redux';
+import { AccountState$ } from '../../redux/selectors';
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
+  const {username} = useSelector(AccountState$);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleChange = (event) => {
@@ -51,7 +54,7 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photos
+            {username} s'Blogs
           </Typography>
           {auth && (
             <div>
@@ -64,6 +67,7 @@ export default function MenuAppBar() {
                 color="inherit"
               >
                 <AccountCircle />
+                {username}
               </IconButton>
               <Menu
                 id="menu-appbar"

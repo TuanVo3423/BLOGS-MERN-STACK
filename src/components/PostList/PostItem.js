@@ -13,7 +13,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import moment from 'moment';
 import { Button, CardMedia, Popper } from '@mui/material';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
-import { deletePosts,showModalEdit, updatePosts } from '../../redux/actions';
+import { PostReducer } from '../../redux/reducers/posts';
+import { EditPostReducer } from '../../redux/reducers/edit';
 
 // moment(...values).format('HH:MM MMM DD, YYYY');
 
@@ -31,15 +32,14 @@ export default function PostItem({postsData}) {
   const id = open ? 'simple-popper' : undefined;
   // nó sẽ dispatch với payload là data của bài post hiện tại được like !!!
   const handleLikeClick = React.useCallback(() => {
-      dispatch(updatePosts.updatePostsRequest({...postsData , likeCount : likeCount + 1 }));
+      dispatch(PostReducer.actions.updatePostsRequest({...postsData , likeCount : likeCount + 1 }));
   },[dispatch, likeCount, postsData]);
 
   const handleDelete = React.useCallback(() => {
-    console.log('postsData._id : ',postsData._id)
-    dispatch(deletePosts.deletePostsRequest(postsData._id));
+    dispatch(PostReducer.actions.deletePostsRequest(postsData._id));
   },[dispatch, postsData._id]);
   const handleEdit = React.useCallback(() => {
-    dispatch(showModalEdit(postsData));
+    dispatch(EditPostReducer.actions.showModalEdit(postsData));
   },[dispatch, postsData]);
   return (
     <Card>
