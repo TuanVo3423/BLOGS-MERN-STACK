@@ -6,8 +6,11 @@ import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import { FabReducer } from '../../redux/reducers/fab';
 import { PostReducer } from '../../redux/reducers/posts';
+import { AccountState$ } from '../../redux/selectors';
 
 export default function CreatePostModal() {
+    const {userID} = useSelector(AccountState$);
+    console.log('userID',userID);
     const [data,setData] = React.useState({
         title: '',
         content : '',
@@ -24,9 +27,9 @@ export default function CreatePostModal() {
     },[dispatch]);
 
     const handleSubmit = React.useCallback(() => {
-        dispatch(PostReducer.actions.createPostsRequest(data));
+        dispatch(PostReducer.actions.createPostsRequest({...data , idUser : userID }));
         onClose();
-    },[data, dispatch, onClose]);
+    },[data, dispatch, onClose, userID]);
 
     const style = {
         position: 'absolute',

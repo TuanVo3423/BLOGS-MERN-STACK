@@ -32,9 +32,22 @@ function* loginSaga (action){
     }
 }
 
+function* SignOutSaga (action){
+    try {
+        yield put(SystemReducer.actions.setNoError());
+        const cookies = new Cookies();
+        yield cookies.remove('token',{ path: '/' });
+        
+    } catch (error) {
+        // message , type
+        yield put(SystemReducer.actions.setMessage(error.response.data));
+    }
+}
+
 function* accountSaga(){
     yield takeLatest(AccountReducer.actions.registerRequest ,registerSaga); 
     yield takeLatest(AccountReducer.actions.loginRequest ,loginSaga); 
+    yield takeLatest(AccountReducer.actions.signOutRequest ,SignOutSaga); 
 }
 
 export default accountSaga;

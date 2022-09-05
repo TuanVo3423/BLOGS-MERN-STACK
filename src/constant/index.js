@@ -24,7 +24,7 @@ export const INIT_STATE = {
     },
     account : {
         isLoading : false,
-        loginSuccess : false,
+        loginSuccess : true,
         userID : undefined,
         isError : false,
         username : undefined,

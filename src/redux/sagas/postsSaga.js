@@ -11,6 +11,7 @@ function* fetchPostSaga(action){
         yield put(SystemReducer.actions.setIsLoading());
         const cookies = new Cookies();
         const cookie = cookies.get('token');
+        console.log('cookie: ' + cookie);
         const posts = yield call(api.fetchPosts,cookie);
         console.log('post',posts.data);
         // put này dùng để dispatch 1 actions
@@ -18,6 +19,8 @@ function* fetchPostSaga(action){
         yield put(AccountReducer.actions.setSuccessState(posts.data));
         yield put(SystemReducer.actions.setStopLoading());
     } catch (error) {
+        console.log(error.response.data);
+        yield put(AccountReducer.actions.setFailState()); // no back to login page 
         yield put(SystemReducer.actions.setMessage(error.response.data));
         yield put(SystemReducer.actions.setStopLoading());
     }
@@ -26,6 +29,7 @@ function* fetchPostSaga(action){
 function* createPostSaga(action){
     try {
         // request post method to save into db
+        console.log(action.payload);
         yield put(SystemReducer.actions.setIsLoading());
         const post = yield call(api.createPosts , action.payload);
         // put này dùng để dispatch 1 actions đến thằng reducer

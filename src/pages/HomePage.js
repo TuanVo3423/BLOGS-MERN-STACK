@@ -14,8 +14,10 @@ function HomePage() {
   const history = useNavigate();
   const dispatch = useDispatch();
   const {loginSuccess} = useSelector(AccountState$);
+  console.log('loginSuccess',loginSuccess);
   useEffect(() => {
     if(!loginSuccess){
+      // set isLoginSuccess to false
       dispatch(AccountReducer.actions.loginFailure());
       history('/auth/login');
     }

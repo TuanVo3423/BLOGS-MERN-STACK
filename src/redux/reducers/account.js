@@ -34,8 +34,14 @@ export const AccountReducer = createSlice({
         },
         setSuccessState : (state, action) => {
             state.loginSuccess = true;
+            state.userID = action.payload.id;
             state.username = action.payload.username;
+        },
+        setFailState : (state, action) => {
+            state.loginSuccess = false;
+        },
+        signOutRequest : (state, action) => {
+            
         }
-        
     }
 });

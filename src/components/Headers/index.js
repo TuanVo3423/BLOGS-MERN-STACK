@@ -8,13 +8,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AccountState$ } from '../../redux/selectors';
+import { AccountReducer } from '../../redux/reducers/account';
+import { useNavigate } from 'react-router-dom';
 
 export default function MenuAppBar() {
+  const dispatch = useDispatch();
   const [auth, setAuth] = React.useState(true);
   const {username} = useSelector(AccountState$);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useNavigate();
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -27,6 +31,12 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleSignOut = React.useCallback(() => {
+    dispatch(AccountReducer.actions.signOutRequest());
+    setAnchorEl(null);
+    history('/auth/login');
+
+  },[dispatch, history])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -84,8 +94,8 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
               </Menu>
             </div>
           )}
