@@ -4,9 +4,13 @@ import FileBase64 from 'react-file-base64';
 import { showModalState$ } from '../../redux/selectors';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
-import { createPosts, hideModal } from '../../redux/actions';
+import { FabReducer } from '../../redux/reducers/fab';
+import { PostReducer } from '../../redux/reducers/posts';
+import { AccountState$ } from '../../redux/selectors';
 
 export default function CreatePostModal() {
+    const {userID} = useSelector(AccountState$);
+    // console.log('userID',userID);
     const [data,setData] = React.useState({
         title: '',
         content : '',
@@ -14,7 +18,7 @@ export default function CreatePostModal() {
     });
     const dispatch = useDispatch();
     const onClose = React.useCallback(() => {
-        dispatch(hideModal());
+        dispatch(FabReducer.actions.HideModalCreate());
         setData({
             title: '',
             content : '',
@@ -23,9 +27,9 @@ export default function CreatePostModal() {
     },[dispatch]);
 
     const handleSubmit = React.useCallback(() => {
-        dispatch(createPosts.createPostsRequest(data));
+        dispatch(PostReducer.actions.createPostsRequest({...data , idUser : userID }));
         onClose();
-    },[data, dispatch, onClose]);
+    },[data, dispatch, onClose, userID]);
 
     const style = {
         position: 'absolute',
