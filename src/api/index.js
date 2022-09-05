@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const URL = 'https://blog-app-gang.herokuapp.com'; 
-const URL = 'http://localhost:5000';
+const URL = 'https://blog-app-gang.herokuapp.com'; 
+// const URL = 'http://localhost:5000';
 
 
 // posts route
