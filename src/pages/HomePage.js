@@ -14,7 +14,7 @@ function HomePage() {
   const history = useNavigate();
   const dispatch = useDispatch();
   const {loginSuccess} = useSelector(AccountState$);
-  console.log('loginSuccess',loginSuccess);
+  // console.log('loginSuccess',loginSuccess);
   useEffect(() => {
     if(!loginSuccess){
       // set isLoginSuccess to false

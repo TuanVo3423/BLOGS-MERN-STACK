@@ -10,7 +10,7 @@ import { AccountState$ } from '../../redux/selectors';
 
 export default function CreatePostModal() {
     const {userID} = useSelector(AccountState$);
-    console.log('userID',userID);
+    // console.log('userID',userID);
     const [data,setData] = React.useState({
         title: '',
         content : '',

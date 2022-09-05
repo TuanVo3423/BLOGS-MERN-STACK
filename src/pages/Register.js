@@ -31,7 +31,7 @@ export default function Reigster() {
         <div>
         <TextField fullWidth label="Name" placeholder="Type in here…" variant="outlined" onChange={handleOnchangeNameInput} />
         <TextField fullWidth label="Password" placeholder="Type in here…" variant="outlined" onChange={handleOnchangePassWordInput} />
-        <Button onClick={handleRegister} sx={{marginTop : '10px'}} variant="contained">REGISTER</Button>
+        <Button fullWidth onClick={handleRegister} sx={{marginTop : '10px'}} variant="contained">REGISTER</Button>
         <Link to={'/auth/login'}>
         <Button fullWidth sx={{marginTop : '10px'}} variant="contained">LOGIN</Button>
         </Link>

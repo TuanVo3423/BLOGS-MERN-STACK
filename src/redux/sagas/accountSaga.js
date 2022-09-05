@@ -6,6 +6,7 @@ import * as api from '../../api';
 
 function* registerSaga (action){
     try {
+        yield put(SystemReducer.actions.setNoError());
         const registerAccount = yield call(api.register , action.payload);
         // put này dùng để dispatch 1 actions đến thằng reducer
         yield put(AccountReducer.actions.registerSuccess(registerAccount.data));
@@ -22,7 +23,6 @@ function* loginSaga (action){
         yield put(SystemReducer.actions.setNoError());
         const cookies = new Cookies();
         const loginAccount = yield call(api.login , action.payload);
-        console.log( 'loginSaga : ',loginAccount.data);
         yield cookies.set('token',loginAccount.data.accessToken,{ path: '/' });
         yield put(AccountReducer.actions.loginSuccess(loginAccount.data));
         
@@ -37,7 +37,6 @@ function* SignOutSaga (action){
         yield put(SystemReducer.actions.setNoError());
         const cookies = new Cookies();
         yield cookies.remove('token',{ path: '/' });
-        
     } catch (error) {
         // message , type
         yield put(SystemReducer.actions.setMessage(error.response.data));

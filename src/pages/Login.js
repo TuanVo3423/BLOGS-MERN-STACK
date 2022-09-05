@@ -40,7 +40,7 @@ export default function LoginForm() {
         <div>
         <TextField fullWidth label="Name" placeholder="Type in here…" variant="outlined" onChange={handleOnchangeNameInput} />
         <TextField fullWidth label="Password" placeholder="Type in here…" variant="outlined" onChange={handleOnchangePassWordInput}/>
-        <Button onClick = {handleLogin} sx={{marginTop : '10px'}} variant="contained">LOGIN</Button>
+        <Button fullWidth onClick = {handleLogin} sx={{marginTop : '10px'}} variant="contained">LOGIN</Button>
         <Link to={'/auth/register'}>
         <Button fullWidth sx={{marginTop : '10px'}} variant="contained">REGISTER</Button>
         </Link>
