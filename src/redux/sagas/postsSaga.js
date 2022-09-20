@@ -9,17 +9,19 @@ function* fetchPostSaga(action){
     
     try {
         yield put(SystemReducer.actions.setIsLoading());
-        const cookies = new Cookies();
-        const cookie = cookies.get('token');
+        const accessToken = action.payload;
+        console.log(accessToken);
+        // const cookies = new Cookies();
+        // const cookie = cookies.get('token');
         // console.log('cookie: ' + cookie);
-        const posts = yield call(api.fetchPosts,cookie);
+        const posts = yield call(api.fetchPosts,accessToken);
         // console.log('post',posts.data);
         // put này dùng để dispatch 1 actions
         yield put(PostReducer.actions.getPostsSuccess(posts.data));
         yield put(AccountReducer.actions.setSuccessState(posts.data));
         yield put(SystemReducer.actions.setStopLoading());
     } catch (error) {
-        // console.log(error.response.data);
+        console.log(error.response);
         yield put(AccountReducer.actions.setFailState()); // no back to login page 
         yield put(SystemReducer.actions.setMessage(error.response.data));
         yield put(SystemReducer.actions.setStopLoading());

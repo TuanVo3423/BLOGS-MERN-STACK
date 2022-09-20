@@ -11,6 +11,7 @@ export const AccountReducer = createSlice({
         },
         registerSuccess : (state, action) => {
             state.isError = false;
+            state.AccessToken = action.payload.accesstoken;
             state.username = action.payload.username;
             state.password = action.payload.password;
         },
@@ -24,6 +25,7 @@ export const AccountReducer = createSlice({
         loginSuccess : (state, action) => {
             state.loginSuccess = true;
             state.isError = false;
+            state.AccessToken = action.payload.accesstoken;
             state.userID = action.payload._id;
             state.username = action.payload.username;
             state.password = action.payload.password;
@@ -42,6 +44,9 @@ export const AccountReducer = createSlice({
         },
         signOutRequest : (state, action) => {
             
+        },
+        signOutSuccess : (state, action) => {
+            state.AccessToken = null;
         }
     }
 });
