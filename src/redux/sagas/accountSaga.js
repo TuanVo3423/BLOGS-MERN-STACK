@@ -35,8 +35,9 @@ function* loginSaga (action){
 function* SignOutSaga (action){
     try {
         yield put(SystemReducer.actions.setNoError());
-        const cookies = new Cookies();
-        yield cookies.remove('token',{ path: '/' });
+        const logoutAccount = yield call(api.logout , action.payload);
+        yield put(AccountReducer.actions.signOutSuccess());
+        yield put(SystemReducer.actions.setMessage(logoutAccount.data));
     } catch (error) {
         // message , type
         yield put(SystemReducer.actions.setMessage(error.response.data));

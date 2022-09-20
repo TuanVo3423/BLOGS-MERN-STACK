@@ -6,10 +6,12 @@ import { AccountState$, postState$ } from '../../redux/selectors';
 import { PostReducer } from '../../redux/reducers/posts';
 export default function PostList() {
   const dispatch = useDispatch();
-  React.useEffect(() => {
-      dispatch(PostReducer.actions.getPostsRequest());
-  },[dispatch]);
+  const {AccessToken} = useSelector(AccountState$);
   const posts = useSelector(postState$);
+  React.useEffect(() => {
+      dispatch(PostReducer.actions.getPostsRequest(AccessToken));
+  },[AccessToken, dispatch]);
+  console.log('AccessToken : ',AccessToken);
   return (
         <Grid sx={{marginTop : '10px'}} container spacing={2} alignItems='stretch'>
               {posts.map(post => (

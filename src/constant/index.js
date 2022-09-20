@@ -23,6 +23,7 @@ export const INIT_STATE = {
         }
     },
     account : {
+        AccessToken : '',
         isLoading : false,
         loginSuccess : true,
         userID : undefined,
